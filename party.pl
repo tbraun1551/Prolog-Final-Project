@@ -59,40 +59,41 @@ dislike(ellen, joan).
 
 
 %1
-guestTest1(N, Gs) :- length(Gs,N), men(Gs).
+% Length done at all
 
-%2
-maleOrFemale([]).
-maleOrFemale([G|Gs]) :- men(M), member(G,M), maleOrFemale(Gs).
-maleOrFemale([G|Gs]) :- women(W), member(G,W), maleOrFemale(Gs).
+%2 Male/or Female
+gender([]).
+gender([G|Gs]) :- men(M), member(G,M), gender(Gs).
+gender([G|Gs]) :- women(W), member(G,W), gender(Gs).
 
-%3
+
+%3 Must be available
 availability(Gs) :- availability1(friday, Gs).
 availability(Gs) :- availability1(saturday, Gs).
 
 availability1(_,[]).
 availability1(Y, [G|Gs]) :- available(G, Y), availability1(Y, Gs).
 
+
 %4
-interestingPerson(Gs) :- not noInteresting(Gs).
+interestingP(Gs) :- not unInteresting(Gs).
 
-noInteresting([]).
-noInteresting([G|Gs]) :- interesting(I), not member(G, I), noInteresting(Gs).
+unInteresting([]).
+unInteresting([G|Gs]) :- interesting(I), not member(G, I), unInteresting(Gs).
 
-%5
-funnyPerson(Gs) :- not noFunny(Gs).
+%5 Must be funny
+funnyP(Gs) :- not unFunny(Gs).
 
-noFunny([]).
-noFunny([G|Gs]) :- funny(F), not member(G, F), noFunny(Gs).
+unFunny([]).
+unFunny([G|Gs]) :- funny(F), not member(G, F), unFunny(Gs).
 
-%6
-%parity(Gs) :- length(Ws, Wn),length(Ms,Mn),Wn=Mn.
+%6 Equal number of men and women
 
-parity(Gs) :- parity1(0,Gs).
+equalGender(Gs) :- eG(0,Gs).
 
-parity1(N,[]) :- eval(N,Nr), Nr == 0.
-parity1(N,[G|Gs]) :- men(M), member(G,M), parity1(N+1,Gs).
-parity1(N,[G|Gs]) :- women(W), member(G,W), parity1(N-1,Gs).
+eG(N,[]) :- eval(N,Nr), Nr == 0.
+eG(N,[G|Gs]) :- men(M), member(G,M), eG(N+1,Gs).
+eG(N,[G|Gs]) :- women(W), member(G,W), eG(N-1,Gs).
 
 %7
 connections(Gs) :- connections1(Gs,Gs).
@@ -107,7 +108,7 @@ dislikes(Party, [G|[]]) :- dislike(G,Y), member(Y,Party).
 dislikes(Party, [G|Gs]) :- dislike(G,Y), member(Y,Party).
 dislikes(Party, [G|Gs]) :- dislikes(Party, Gs).
 
-%9
+%9 not mixing social party
 noMixing(Gs) :- not mixing1(0,0,Gs).
 
 mixing1(Dn, Rn, []) :- eval(Dn,Dr), eval(Rn,Rr), not Dr == 0, not Rr == 0.
@@ -122,6 +123,6 @@ noDuplicates([G|Gs]) :- not member(G,Gs), noDuplicates(Gs).
 duplicates([]).
 duplicates([G|Gs]) :- duplicates(Gs), member(G,Gs).
 
-%FINAL - form: guests(People in party, number in party)
-guests(Gs, N) :- length(Gs, N), maleOrFemale(Gs), availability(Gs), interestingPerson(Gs), 
-funnyPerson(Gs), parity(Gs), connections(Gs), noDislikes(Gs), noMixing(Gs), noDuplicates(Gs).
+%FInal thing to call - form: guests(People in party, number in party)
+guests(Gs, N) :- length(Gs, N), gender(Gs), availability(Gs), interestingP(Gs), 
+funnyP(Gs), equalGender(Gs), connections(Gs), noDislikes(Gs), noMixing(Gs), noDuplicates(Gs).
