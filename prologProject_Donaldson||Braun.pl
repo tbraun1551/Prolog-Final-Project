@@ -1,4 +1,4 @@
-/*Thomas Braun, Sindel Donaldson. Odd questions*/
+/*Thomas Braun, Sindel Donaldson.*/
 
 :- lib(lists).
 :- lib(fd).
@@ -13,7 +13,7 @@ question1(Teas) :-
 	(Good * 30) + (Inferior * 27) + (Indian * 21) #= 570,
 	minimize(labeling(Teas), Good).
 
-
+%Question 2
 question2(Barrels) :-
 	Quantities = [31, 19, 20, 16, 18, 15],
 	Barrels = [Beer, W1, W2, W3, W4, W5],
@@ -180,6 +180,49 @@ question7(Sons) :-
 	Sons = [S1, S2, S3, S4, S5].
 
 
+%Question8
+question8(Rows):-
+
+	Rows = [
+	[L11, L12, L13, L14, L15, L16, L17, L18],
+	[L21, L22, L23, L24, L25, L26, L27, L28],
+	[L31, L32, L33, L34, L35, L36, L37, L38],
+	[L41, L42, L43, L44, L45, L46, L47, L48],
+	[L51, L52, L53, L54, L55, L56, L57, L58],
+	[L61, L62, L63, L64, L65, L66, L67, L68],
+	[L71, L72, L73, L74, L75, L76, L77, L78],
+	[L81, L82, L83, L84, L85, L86, L87, L88]],
+	Rows :: [0,1],
+
+	Col = [
+	[L11, L21, L31, L41, L51, L61, L71, L81],
+	[L12, L22, L32, L42, L52, L62, L72, L82],
+	[L13, L23, L33, L43, L53, L63, L73, L83],
+	[L14, L24, L34, L44, L54, L64, L74, L84],
+	[L15, L25, L35, L45, L55, L65, L75, L85],
+	[L16, L26, L36, L46, L56, L66, L76, L86],
+	[L17, L27, L37, L47, L57, L67, L77, L87],
+	[L18, L28, L38, L48, L58, L68, L78, L88]],
+	Mult = [1, 2, 3, 4, 5, 6, 7, 8],
+
+	%Row sums
+	Mult * [L31, L32, L33, L34, L35, L36, L37, L38] #= 5,
+	Mult * [L41, L42, L43, L44, L45, L46, L47, L48] #= 10,
+	Mult * [L51, L52, L53, L54, L55, L56, L57, L58] #= 29,
+	Mult * [L71, L72, L73, L74, L75, L76, L77, L78] #= 26,
+	%column sums
+	Mult * [L11, L21, L31, L41, L51, L61, L71, L81] #= 6,
+	Mult * [L12, L22, L32, L42, L52, L62, L72, L82] #= 15,
+	Mult * [L13, L23, L33, L43, L53, L63, L73, L83] #= 28,
+	Mult * [L14, L24, L34, L44, L54, L64, L74, L84] #= 27,
+	Mult * [L15, L25, L35, L45, L55, L65, L75, L85] #= 30,
+	Mult * [L16, L26, L36, L46, L56, L66, L76, L86] #= 28,
+	Mult * [L17, L27, L37, L47, L57, L67, L77, L87] #= 6,
+	Mult * [L18, L28, L38, L48, L58, L68, L78, L88] #= 30,
+
+	labeling(Rows).
+
+%Question 9 - Bonus
 question9(Squares) :-
     
     Squares = [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P],
@@ -237,8 +280,8 @@ question9(Squares) :-
 
 
 
-    %Question number 10 Party list
-    men([tom, fred, billy, tim, frank, barry]).
+%Question number 10 Party list -Bonus
+men([tom, fred, billy, tim, frank, barry]).
 women([sue, jane, betty, ellen, joan, betsy]).
 
 funny([tom, sue, tim, ellen]).

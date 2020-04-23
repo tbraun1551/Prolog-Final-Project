@@ -1,46 +1,44 @@
-problem4(E) :-
+:- lib(lists).
+:- lib(fd).
+:- lib(fd_search).
 
-	A = [B],
-    A::0..99999,
-    member(E, A),
+question8(Rows):-
 
-    E #= (E2 * 2) + 1,
-    E #= (E3 * 3) + 1,
-    E #= (E4 * 4) + 1,
-    E #= (E5 * 5) + 1,
-    E #= (E6 * 6) + 1,
-    E #= (E7 * 7),
-    
-    B = E,
-    
-    minimize(labeling(A), B).
+	Rows = [
+	[L11, L12, L13, L14, L15, L16, L17, L18],
+	[L21, L22, L23, L24, L25, L26, L27, L28],
+	[L31, L32, L33, L34, L35, L36, L37, L38],
+	[L41, L42, L43, L44, L45, L46, L47, L48],
+	[L51, L52, L53, L54, L55, L56, L57, L58],
+	[L61, L62, L63, L64, L65, L66, L67, L68],
+	[L71, L72, L73, L74, L75, L76, L77, L78],
+	[L81, L82, L83, L84, L85, L86, L87, L88]],
+	Rows :: [0,1],
 
+	Col = [
+	[L11, L21, L31, L41, L51, L61, L71, L81],
+	[L12, L22, L32, L42, L52, L62, L72, L82],
+	[L13, L23, L33, L43, L53, L63, L73, L83],
+	[L14, L24, L34, L44, L54, L64, L74, L84],
+	[L15, L25, L35, L45, L55, L65, L75, L85],
+	[L16, L26, L36, L46, L56, L66, L76, L86],
+	[L17, L27, L37, L47, L57, L67, L77, L87],
+	[L18, L28, L38, L48, L58, L68, L78, L88]],
+	Mult = [1, 2, 3, 4, 5, 6, 7, 8],
 
+	%Row sums
+	Mult * [L31, L32, L33, L34, L35, L36, L37, L38] #= 5,
+	Mult * [L41, L42, L43, L44, L45, L46, L47, L48] #= 10,
+	Mult * [L51, L52, L53, L54, L55, L56, L57, L58] #= 29,
+	Mult * [L71, L72, L73, L74, L75, L76, L77, L78] #= 26,
+	%column sums
+	Mult * [L11, L21, L31, L41, L51, L61, L71, L81] #= 6,
+	Mult * [L12, L22, L32, L42, L52, L62, L72, L82] #= 15,
+	Mult * [L13, L23, L33, L43, L53, L63, L73, L83] #= 28,
+	Mult * [L14, L24, L34, L44, L54, L64, L74, L84] #= 27,
+	Mult * [L15, L25, L35, L45, L55, L65, L75, L85] #= 30,
+	Mult * [L16, L26, L36, L46, L56, L66, L76, L86] #= 28,
+	Mult * [L17, L27, L37, L47, L57, L67, L77, L87] #= 6,
+	Mult * [L18, L28, L38, L48, L58, L68, L78, L88] #= 30,
 
-%Q2
-
-beer(Beer):-
-	Quantities = [15, 31, 19, 20, 16, 18],
-	Barrels = [A, B, C, D, E, Beer],
-	Barrels :: 15..31,
-	Sale1 #= A + B,
-	Sale2 #= C + D + E,
-	Sale2 #= Sale1 * 2,
-	member(A, Quantities),
-	member(B, Quantities),
-	member(C, Quantities),
-	member(D, Quantities),
-	member(E, Quantities),
-	member(Beer, Quantities),
-	alldifferent(Barrels).
-		
-
-question2(Barrels) :-
-	Quantities = [15, 31, 19, 20, 16, 18],
-	Barrels = [Beer, W1, W2, W3, W4, W5],
-	Barrels :: 15..31,
-	W3 + W4 + W5 #= W1 + W2 + W1 + W2,
-	member(Beer, Quantities),
-	alldifferent(Barrels),
-	labeling(Barrels),
-	printf('%3d', [Beer]).
+	labeling(Rows).
