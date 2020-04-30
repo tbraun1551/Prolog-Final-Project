@@ -78,7 +78,6 @@ question4(E) :-
 
 
 %Question 5
-
 question5(Trusses):-
     Weights = [110, 112, 113, 114, 115, 116, 117, 118, 120, 121],
     Trusses = [A, B, C, D, E],
@@ -125,6 +124,8 @@ question6(Alpha) :-
 
     printf("%3d", [PLANETS]).
 
+
+
 /*Question7*/
 question7(Sons) :-
 	S1 = [S11, S17, S15, S12, S10],
@@ -132,7 +133,6 @@ question7(Sons) :-
 	S3 = [S31, S37, S35, S32, S30],
 	S4 = [S41, S47, S45, S42, S40],
 	S5 = [S51, S57, S55, S52, S50],
-
 
 	S11 + S21 + S31 + S41 + S51 #= 9,
 	S17 + S27 + S37 + S47 + S57 #= 9,
@@ -400,8 +400,6 @@ dislikes(Party, [G|[]]) :- dislike(G,Y), member(Y,Party).
 dislikes(Party, [G|Gs]) :- dislike(G,Y), member(Y,Party).
 dislikes(Party, [G|Gs]) :- dislikes(Party, Gs).
 
-
-
 %No Duplicates
 noDuplicates([]).
 noDuplicates([G|Gs]) :- not member(G,Gs), noDuplicates(Gs).
@@ -410,5 +408,7 @@ duplicates([]).
 duplicates([G|Gs]) :- duplicates(Gs), member(G,Gs).
 
 %FInal thing to call - form: guests(People in party, number in party)
-guests(Gs, N) :- length(Gs, N), gender(Gs), availability(Gs), interestingP(Gs), 
+question10(Gs, N) :- length(Gs, N), gender(Gs), availability(Gs), interestingP(Gs), 
 funnyP(Gs), equalGender(Gs), connections(Gs), noDislikes(Gs), noMixing(Gs), noDuplicates(Gs).
+
+guests(Gs, N) :- question10(Gs, N).
